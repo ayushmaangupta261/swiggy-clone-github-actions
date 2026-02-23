@@ -40,4 +40,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/swiggy-app:latest
+
+      - name: Trivy Image Scan
+        run: trivy image ${{ secrets.DOCKERHUB_USERNAME }}/swiggy-app > trivyimage.txt
   
