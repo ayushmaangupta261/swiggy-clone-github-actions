@@ -43,4 +43,15 @@ jobs:
 
       - name: Trivy Image Scan
         run: trivy image ${{ secrets.DOCKERHUB_USERNAME }}/swiggy-app > trivyimage.txt
+
+      - name: Send a slack notification
+        if: always()
+        uses: actions/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#github-ations'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        
   
