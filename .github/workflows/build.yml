@@ -44,32 +44,32 @@ jobs:
       - name: Trivy Image Scan
         run: trivy image ${{ secrets.DOCKERHUB_USERNAME }}/swiggy-app > trivyimage.txt
 
-      - name: Send Slack Notification
-        if: always()
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "GitHub Actions Job Status: ${{ job.status }}",
-              "attachments": [
-                {
-                  "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
-                  "fields": [
-                    {
-                      "title": "Repository",
-                      "value": "${{ github.repository }}",
-                      "short": true
-                    },
-                    {
-                      "title": "Branch",
-                      "value": "${{ github.ref_name }}",
-                      "short": true
-                    }
-                  ]
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      # - name: Send Slack Notification
+      #   if: always()
+      #   uses: slackapi/slack-github-action@v1.24.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": "GitHub Actions Job Status: ${{ job.status }}",
+      #         "attachments": [
+      #           {
+      #             "color": "${{ job.status == 'success' && 'good' || 'danger' }}",
+      #             "fields": [
+      #               {
+      #                 "title": "Repository",
+      #                 "value": "${{ github.repository }}",
+      #                 "short": true
+      #               },
+      #               {
+      #                 "title": "Branch",
+      #                 "value": "${{ github.ref_name }}",
+      #                 "short": true
+      #               }
+      #             ]
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         
   
